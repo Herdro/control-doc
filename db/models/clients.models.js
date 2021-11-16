@@ -34,7 +34,7 @@ class Client extends Model {
   }
   static config(sequelize) {
     return {
-      Sequelize,
+      sequelize,
       tableName: CLIENT_TABLE,
       modelName: 'Client',
       timestamps: false,

@@ -55,7 +55,7 @@ class Proyect extends Model {
   }
   static config(sequelize) {
     return {
-      Sequelize,
+      sequelize,
       tableName: PROYECT_TABLE,
       modelName: 'Proyect',
       timestamps: false,
