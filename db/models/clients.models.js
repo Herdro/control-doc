@@ -27,10 +27,10 @@ class Client extends Model {
         as: 'clientDirect',
         foreignKey: 'directClientId',
     });
-    // this.hasMany(models.Proyect, {
-    //     as: 'clientOwner',
-    //     foreignKey:'ownerClientId',
-    // });
+    this.hasMany(models.Proyect, {
+        as: 'clientOwner',
+        foreignKey:'ownerClientId',
+    });
   }
   static config(sequelize) {
     return {

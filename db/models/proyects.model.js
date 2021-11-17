@@ -35,23 +35,24 @@ const ProyectSchema = {
     },
     onUpdate: 'CASCADE',
     onDelete: 'SET NULL'
-  // },
-  // ownerClientId: {
-  //   allowNull: true,
-  //   type: DataTypes.INTEGER,
-  //   field: 'owner_client_id',
-  //   references: {
-  //     model: CLIENT_TABLE,
-  //     key: 'id',
-  //   },
-  //   onUpdate: 'CASCADE',
-  //   onDelete: 'SET NULL'
+  },
+  ownerClientId: {
+    allowNull: true,
+    type: DataTypes.INTEGER,
+    field: 'owner_client_id',
+    references: {
+      model: CLIENT_TABLE,
+      key: 'id',
+    },
+    onUpdate: 'CASCADE',
+    onDelete: 'SET NULL'
   }
 };
 
 class Proyect extends Model {
   static associate(models) {
     this.belongsTo(models.Client, { as: 'directClient' });
+    this.belongsTo(models.Client, { as: 'ownerClient' });
   }
   static config(sequelize) {
     return {
