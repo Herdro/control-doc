@@ -53,6 +53,10 @@ class Proyect extends Model {
   static associate(models) {
     this.belongsTo(models.Client, { as: 'directClient' });
     this.belongsTo(models.Client, { as: 'ownerClient' });
+    this.hasMany(models.Document, {
+      foreignKey: "proyectId",
+      as: "proyect",
+    });
   }
   static config(sequelize) {
     return {
