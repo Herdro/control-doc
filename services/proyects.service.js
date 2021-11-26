@@ -1,5 +1,6 @@
-const { Client } = require('../db/models/clients.models');
-const { models } = require('../libs/sequelizer');
+const { Client } = require("../db/models/clients.models");
+const { models } = require("../libs/sequelizer");
+const Op = require("sequelize").Op;
 
 class ProyectService {
   constructor() {}
@@ -14,21 +15,32 @@ class ProyectService {
     return rta;
   }
 
+  async findLike(data) {
+    const rta = await models.Proyect.findAll({
+      where: {
+        proyectCode: {
+          [Op.like]: `%${data}%`,
+        },
+      },
+    });
+    return rta;
+  }
+
   async findOne(id) {
-    const Proyect = await models.Proyect.findByPk(
-      id,
-      {include: [
+    const Proyect = await models.Proyect.findByPk(id, {
+      include: [
         {
           model: Client,
-          as: 'directClient',
+          as: "directClient",
         },
         {
           model: Client,
-          as: 'ownerClient',
-        }
-      ]});
+          as: "ownerClient",
+        },
+      ],
+    });
     if (!Proyect) {
-      throw boom.notFound('Proyect not found');
+      throw boom.notFound("Proyect not found");
     }
     return Proyect;
   }

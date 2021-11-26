@@ -41,6 +41,10 @@ const DocumentSchema = {
     type: DataTypes.STRING,
     field: "code_out",
   },
+  deadline: {
+    allowNull: false,
+    type: DataTypes.DATE,
+  },
   active: {
     allowNull: false,
     type: DataTypes.BOOLEAN,
