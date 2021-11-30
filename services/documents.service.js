@@ -5,6 +5,11 @@ const { Client } = require('../db/models/clients.models');
 class DocumentService {
   constructor() {}
 
+  async create2(data) {
+    const newDocument = await models.Document.bulkCreate(data);
+    return newDocument;
+  }
+
   async create(data) {
     const newDocument = await models.Document.create(data);
     return newDocument;

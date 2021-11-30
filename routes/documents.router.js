@@ -2,7 +2,7 @@ const express = require('express');
 
 const DocumentService = require('../services/documents.service');
 const validatorHandler = require('../middleware/validator.handler');
-const { updateDocumentSchema, createDocumentSchema, getDocumentSchema } = require('../schema/documents.schema');
+const { updateDocumentSchema, createDocumentSchema, createArrayDocumentSchema, getDocumentSchema } = require('../schema/documents.schema');
 
 const router = express.Router();
 const service = new DocumentService();
@@ -23,6 +23,19 @@ router.get('/:id',
       const { id } = req.params;
       const category = await service.findOne(id);
       res.json(category);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+router.post('/bulk',
+  validatorHandler(createArrayDocumentSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      const newCategory = await service.create2(body);
+      res.status(201).json(newCategory);
     } catch (error) {
       next(error);
     }

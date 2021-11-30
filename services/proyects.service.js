@@ -5,6 +5,11 @@ const Op = require("sequelize").Op;
 class ProyectService {
   constructor() {}
 
+  async create2(data) {
+    const newProyect = await models.Proyect.bulkCreate(data);
+    return newProyect;
+  }
+
   async create(data) {
     const newProyect = await models.Proyect.create(data);
     return newProyect;
@@ -18,8 +23,13 @@ class ProyectService {
   async findLike(data) {
     const rta = await models.Proyect.findAll({
       where: {
-        proyectCode: {
-          [Op.like]: `%${data}%`,
+        [Op.or]: {
+          proyectCode: {
+            [Op.like]: `%${data.proyectCode}%`,
+          },
+          proyectName: {
+            [Op.like]: `%${data.proyectName}%`,
+          },
         },
       },
     });

@@ -42,8 +42,9 @@ const DocumentSchema = {
     field: "code_out",
   },
   deadline: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.DATE,
+    defaultValue: Sequelize.NOW,
   },
   active: {
     allowNull: false,

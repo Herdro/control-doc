@@ -16,18 +16,19 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/search/:proyectCode',
-  validatorHandler(updateProyectSchema, 'params'),
+router.get('/search',
+  validatorHandler(updateProyectSchema, 'query'),
   async (req, res, next) => {
     try {
-      const { proyectCode } = req.params;
-      const category = await service.findLike(proyectCode);
+      const data = req.query;
+      const category = await service.findLike(data);
       res.json(category);
     } catch (error) {
       next(error);
     }
   }
 );
+
 
 router.get('/:id',
   validatorHandler(getProyectSchema, 'params'),
