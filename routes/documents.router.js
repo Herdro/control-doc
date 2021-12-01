@@ -16,6 +16,19 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/search',
+  validatorHandler(updateDocumentSchema, 'query'),
+  async (req, res, next) => {
+    try {
+      const data = req.query;
+      const category = await service.findLike(data);
+      res.json(category);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 router.get('/:id',
   validatorHandler(getDocumentSchema, 'params'),
   async (req, res, next) => {

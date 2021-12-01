@@ -1,6 +1,7 @@
 const { models } = require('../libs/sequelizer');
 const { Proyect } = require('../db/models/proyects.model');
 const { Client } = require('../db/models/clients.models');
+const Op = require("sequelize").Op;
 
 class DocumentService {
   constructor() {}
@@ -15,6 +16,20 @@ class DocumentService {
     return newDocument;
   }
 
+  async findLike(data) {
+    const rta = await models.Document.findAll({include: ['transmittals']},{
+      where: {
+        [Op.or]: {
+          documentName: { [Op.like]: `%${data.documentName}%` },
+          codeIn: { [Op.like]: `%${data.codeIn}%` },
+          codeOut: { [Op.like]: `%${data.codeOut}%` },
+          proyectId: { [Op.eq]: `${data.proyectId}` },
+        }
+      }
+    });
+    return rta;
+  }
+
   async find() {
     const rta = await models.Document.findAll();
     return rta;
@@ -27,7 +42,7 @@ class DocumentService {
         model: Proyect,
         as: "proyect",
         include: [{model: Client, as: "directClient"},{model: Client, as: "ownerClient"}]
-      }]});
+      }, 'transmittals']});
     if (!Document) {
       throw boom.notFound('Document not found');
     }

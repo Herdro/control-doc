@@ -42,7 +42,7 @@ router.post('/',
   }
 );
 
-router.post('/:id/add-doc',
+router.post('/add-doc',
   validatorHandler(addDocumentSchema, 'body'),
   async (req, res, next) => {
     try {

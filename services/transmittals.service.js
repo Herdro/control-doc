@@ -9,7 +9,7 @@ class TransmittalService {
   }
 
   async addDoc(data) {
-    const newDocumentenTransmittal = await models.DocumentenTransmittal.create(data);
+    const newDocumentenTransmittal = await models.DocumentenTransmittal.bulkCreate(data);
     return newDocumentenTransmittal;
   }
 
@@ -19,7 +19,9 @@ class TransmittalService {
   }
 
   async findOne(id) {
-    const Transmittal = await models.Transmittal.findByPk(id);
+    const Transmittal = await models.Transmittal.findByPk(id, {
+      include: ['documents']
+    });
     if (!Transmittal) {
       throw boom.notFound('Transmittal not found');
     }

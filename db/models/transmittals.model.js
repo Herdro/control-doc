@@ -31,6 +31,12 @@ const TransmittalSchema = {
     onUpdate: "CASCADE",
     onDelete: "SET NULL",
   },
+  createdAt: {
+    allowNull: false,
+    type: DataTypes.DATE,
+    field: "created_at",
+    defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+  },
   active: {
     allowNull: false,
     type: DataTypes.BOOLEAN,

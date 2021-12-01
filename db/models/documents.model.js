@@ -56,6 +56,12 @@ const DocumentSchema = {
 class Document extends Model {
   static associate(models) {
     this.belongsTo(models.Proyect, { as: "proyect" });
+    this.belongsToMany(models.Transmittal, {
+      as: "transmittals",
+      through: models.DocumentenTransmittal,
+      foreignKey: 'documentId',
+      otherKey: 'transmittalId',
+    });
 
   }
   static config(sequelize) {
